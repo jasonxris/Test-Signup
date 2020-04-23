@@ -33,6 +33,7 @@ function onSubmit(e) {
   // get all rows with the same email and a boolean saying if the limit was exceeded
   var numberOfResponses = getAllRowsWithThisEmail(email);
   var isLimitExceeded = wasLimitExceeded(submissionTime);
+//  var isEmailValid = validateEmail(email);
   Logger.log(isLimitExceeded);
 
 
@@ -60,10 +61,13 @@ function onSubmit(e) {
                       "Please resubmit a programming exam request here: ";
     }
 
+
     MailApp.sendEmail( email,
                       "FAILED TO SUBMIT: Programming Exam Schedule ",
-                    message,
-                    {name:"CS240 TA"});
+                      message,
+                      {name:"CS240 TA"});
+
+
 
 
   }
@@ -111,6 +115,15 @@ function verifySuccess(numberOfResponses, isLimitExceeded){
   else{
     return false;
   }
+}
+
+function validateEmail(mail) {
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(mail)){
+   Logger.log("true");
+    return (true)
+  }
+  Logger.log("false");
+    return (false)
 }
 
 function getAllRowsWithThisEmail(email){
